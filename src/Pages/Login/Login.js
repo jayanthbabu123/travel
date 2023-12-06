@@ -24,10 +24,16 @@ const Login = () => {
         if (data.token) {
           console.log(data, "***");
           // Token received, pass it to the parent component
+
           onLogin(data);
           setSuccessMessage("Login successful");
           setErrorMessage("");
-          navigate("/my-trips"); // Navigate to My Trips page
+          if(data.role === "admin") {
+            navigate("/all-users"); // Navigate to Admin Dashboard page
+          } else{
+            navigate("/my-trips"); // Navigate to My Trips page
+          }
+          
         } else {
           setErrorMessage(data.errors.map((error) => error.msg).join(", "));
           setSuccessMessage("");
